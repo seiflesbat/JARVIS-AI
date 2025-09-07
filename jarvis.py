@@ -8,11 +8,14 @@ import sys
 import re
 from datetime import datetime
 from urllib.parse import quote_plus
+from dotenv import load_dotenv  # 🔐 Load environment variables
+import os  # 🗃️ Access system variables
 
-# 🔐 Your new OpenRouter API key for Gemini 2.5 Pro
-OPENROUTER_KEY = "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"
+# 🔐 Load API key from .env file
+load_dotenv()
+OPENROUTER_KEY = os.getenv("OPENROUTER_KEY")
 
-# 🧠 Model selection
+# 🧠 AI model selection
 MODEL_NAME = "google/gemini-2.5-pro"
 
 # 🎭 JARVIS personality prompt
@@ -24,7 +27,7 @@ Anticipate needs, weave in trivia or a clever joke, and when appropriate perform
 Keep it calm, loyal, and a tad mischievous.
 """
 
-# 🗺️ App launch shortcuts (Windows)
+# 🗺️ App launch shortcuts
 APP_COMMANDS = {
     "notepad": "notepad",
     "calculator": "calc",
@@ -32,7 +35,7 @@ APP_COMMANDS = {
     "chrome": "chrome",
 }
 
-# 🌐 Quick site shortcuts
+# 🌐 Website shortcuts
 SITE_SHORTCUTS = {
     "youtube": "https://www.youtube.com",
     "gmail": "https://mail.google.com",
@@ -43,7 +46,7 @@ SITE_SHORTCUTS = {
     "reddit": "https://www.reddit.com",
 }
 
-# 🔊 Speak text using pyttsx3
+# 🔊 Speak text aloud
 def speak(text):
     engine = pyttsx3.init()
     engine.setProperty('rate', 150)
@@ -57,7 +60,7 @@ def speak(text):
     engine.runAndWait()
     engine.stop()
 
-# 🎧 Listen for user speech
+# 🎧 Listen for voice input
 def listen():
     recognizer = sr.Recognizer()
     recognizer.pause_threshold = 1.2
@@ -78,7 +81,7 @@ def listen():
         print("❌ Speech recognition error.")
         return ""
 
-# 🧠 Query OpenRouter (Gemini 2.5 Pro) for an AI response
+# 🧠 Get AI response from OpenRouter
 def get_ai_response(prompt):
     headers = {
         "Authorization": f"Bearer {OPENROUTER_KEY}",
@@ -111,7 +114,7 @@ def get_ai_response(prompt):
         print(f"❌ Exception: {e}")
         return "It appears I've hit a snag while thinking."
 
-# 🌐 Helpers for web actions
+# 🌐 Web helpers
 def open_url(url):
     try:
         webbrowser.open(url, new=2)
@@ -146,17 +149,15 @@ def open_app(name):
     except:
         return False
 
-# 🧭 Command router with smart matches
+# 🧭 Command router
 def handle_command(text):
     if not text:
         return False
 
-    # Exit commands
     if re.search(r"\b(exit|quit|shutdown|sleep)\b", text):
         speak("Shutting down. Until next time.")
         sys.exit(0)
 
-    # Time or date queries
     if re.search(r"\bwhat(?:'s| is)? the time\b", text):
         now = datetime.now().strftime("%H:%M")
         speak(f"The current time is {now}.")
@@ -166,7 +167,6 @@ def handle_command(text):
         speak(f"Today is {today}.")
         return True
 
-    # Open websites
     m = re.search(r"\bopen\s+([a-z0-9.\-]+)\b", text)
     if m:
         target = m.group(1)
@@ -176,7 +176,6 @@ def handle_command(text):
             speak(f"I couldn't open {target}, my apologies.")
         return True
 
-    # YouTube search
     if re.search(r"\b(play|search)\s+(.+?)\s+on\s+youtube\b", text):
         query = re.sub(r".*?\s+on\s+youtube$", r"\2", text)
         if youtube_search(query):
@@ -185,7 +184,6 @@ def handle_command(text):
             speak("I couldn't complete the YouTube search.")
         return True
 
-    # Google search
     if re.search(r"\bgoogle\s+(.+)", text):
         query = re.search(r"\bgoogle\s+(.+)", text).group(1)
         if google_search(query):
@@ -194,7 +192,6 @@ def handle_command(text):
             speak("I couldn't reach Google.")
         return True
 
-    # Wikipedia lookup
     if re.search(r"\b(wikipedia|define|who is|what is)\b", text):
         query = re.sub(r".*(?:wikipedia|define|who is|what is)\s+", "", text)
         if wikipedia_search(query):
@@ -203,7 +200,6 @@ def handle_command(text):
             speak("I couldn't access Wikipedia right now.")
         return True
 
-    # Launch apps
     if re.search(r"\b(open|launch|start)\s+(.+)", text):
         app = re.search(r"\b(?:open|launch|start)\s+(.+)", text).group(1)
         if open_app(app):
@@ -216,6 +212,7 @@ def handle_command(text):
 
 # 🚀 Main loop
 if __name__ == "__main__":
+    print("✅ JARVIS script started")  # Debug confirmation
     speak("Systems online. Jarvis at your service.")
     while True:
         try:
