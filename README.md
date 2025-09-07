@@ -48,6 +48,10 @@ JARVIS-AI/
 - Add logging and error tracking
 - Create a setup script for easy installation
 
+## 🚀 What’s Next (Version 2.0 Roadmap)
+
+See `ROADMAP.md` for upcoming features and plans.
+
 ## 👨‍💻 Author
 
 **Seif** — aspiring developer building his first AI assistant.
