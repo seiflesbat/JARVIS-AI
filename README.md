@@ -49,4 +49,4 @@ JARVIS-AI/
 
 ## 👨‍💻 Author
 
-**Seif** — aspiring developer building his first AI assistant with Microsoft Copilot as his guide.
+**Seif** — aspiring developer building his first AI assistant.
