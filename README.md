@@ -1,3 +1,4 @@
+> 📦 Current Version: **v1.0** — [View Release](https://github.com/seiflesbat/JARVIS-AI/releases/tag/v1.0)
 # JARVIS-AI 🤖
 
 Welcome to JARVIS-AI, a personal assistant project inspired by Iron Man’s JARVIS. My first full-stack AI assistant, built from scratch with voice control, smart responses, and modular design.
