@@ -1,6 +1,6 @@
 # JARVIS-AI 🤖
 
-Welcome to JARVIS-AI, a personal assistant project inspired by Iron Man’s JARVIS. This is Seif’s first full-stack AI assistant, built from scratch with voice control, smart responses, and modular design.
+Welcome to JARVIS-AI, a personal assistant project inspired by Iron Man’s JARVIS. My first full-stack AI assistant, built from scratch with voice control, smart responses, and modular design.
 
 ## ✅ Version 1.0 Highlights
 
